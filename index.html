@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>John Lloyd Mañago — Web Developer</title>
-<meta name="description" content="Portfolio of John Lloyd Mañago, junior web developer specializing in WordPress, PHP, and full-stack development.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>John Lloyd Mañago — Web & Automation Developer</title>
+<meta name="description" content="Portfolio of John Lloyd Mañago, a junior web developer specializing in WordPress and workflow automation with Zapier and n8n.">
+<link rel="preconnect" href="https://fonts.googleapis.com"> 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -403,9 +403,14 @@
   /* ---------- SKILLS ---------- */
   .skills-grid{
     display:grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 32px;
   }
+
+  @media (max-width: 900px){
+    .skills-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  
   .skill-group .mono{ font-size: 0.78rem; color: var(--accent); display:block; margin-bottom: 14px; }
   .skill-list{ list-style:none; }
   .skill-list li{
@@ -491,8 +496,8 @@
     <div class="wrap">
       <span class="eyebrow mono">$ whoami</span>
       <h1>John Lloyd Mañago</h1>
-      <p class="role">Junior <strong>Web Developer</strong> based in the Philippines, building responsive, production-ready sites in WordPress, PHP, and JavaScript.</p>
-      <p class="terminal-line mono">&gt; status: open to junior developer roles<span class="cursor"></span></p>
+      <p class="role">Junior <strong>Web & Automation Developer</strong> based in the Philippines, building WordPress sites and automated workflows with Zapier and n8n.</p>
+      <p class="terminal-line mono">&gt; status: open to web development and automation roles<span class="cursor"></span></p>
       <div class="hero-ctas">
         <a href="#work" class="btn btn-primary">View my work</a>
         <a href="mailto:johnlloydmanago1915@gmail.com" class="btn btn-secondary">Get in touch</a>
@@ -505,13 +510,15 @@
       <span class="pill">WordPress</span>
       <span class="pill">Elementor</span>
       <span class="pill">WooCommerce</span>
+      <span class="pill">FluentCRM</span>
+      <span class="pill">Zapier</span>
+      <span class="pill">n8n</span>
       <span class="pill">PHP</span>
       <span class="pill">JavaScript</span>
       <span class="pill">HTML / CSS</span>
       <span class="pill">MySQL</span>
       <span class="pill">Python</span>
       <span class="pill">C#</span>
-      <span class="pill">FluentCRM</span>
     </div>
   </div>
 
@@ -523,6 +530,41 @@
       </div>
 
       <div class="projects">
+
+        <article class="project-card">
+          <div class="carousel" tabindex="0" aria-roledescription="carousel" aria-label="Client Inquiry &amp; Lead Management System screenshots">
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="zapier-client-inquiry-lead-management/workflow-1.png" alt="Zapier workflow screenshot 1 of 7"></div>
+              <div class="carousel-slide"><img src="zapier-client-inquiry-lead-management/form-1.png" alt="Zapier workflow screenshot 2 of 7" loading="lazy"></div>
+              <div class="carousel-slide"><img src="zapier-client-inquiry-lead-management/form-2.png" alt="Zapier workflow screenshot 3 of 7" loading="lazy"></div>
+              <div class="carousel-slide"><img src="zapier-client-inquiry-lead-management/form-3.png" alt="Zapier workflow screenshot 4 of 7" loading="lazy"></div>
+              <div class="carousel-slide"><img src="zapier-client-inquiry-lead-management/sheets-1.png" alt="Zapier workflow screenshot 5 of 7" loading="lazy"></div>
+              <div class="carousel-slide"><img src="zapier-client-inquiry-lead-management/slack-1.png" alt="Zapier workflow screenshot 6 of 7" loading="lazy"></div>
+              <div class="carousel-slide"><img src="zapier-client-inquiry-lead-management/email-1.png" alt="Zapier workflow screenshot 7 of 7" loading="lazy"></div>
+            </div>
+            <button class="carousel-btn prev" aria-label="Previous image">&#8592;</button>
+            <button class="carousel-btn next" aria-label="Next image">&#8594;</button>
+            <div class="carousel-dots"></div>
+            <span class="carousel-count mono"></span>
+          </div>
+          <div class="project-body">
+          <div>
+            <span class="project-path mono">~/work/client-inquiry-automation</span>
+            <h3>Client Inquiry &amp; Lead Management System</h3>
+            <p>Built a rule-based workflow automation that turns Google Form inquiries into a prioritized lead tracker. Zapier records each submission in a Google Sheets CRM, a sheet formula classifies it as High, Medium, or Low priority by budget, and Gmail sends the client an acknowledgment email, with alert logic for high-priority leads. The result is less manual data entry and faster follow-up, without needing a paid AI API.</p>
+            <div class="tag-row">
+              <span class="tag">Zapier</span>
+              <span class="tag">Google Forms</span>
+              <span class="tag">Google Sheets</span>
+              <span class="tag">Gmail</span>
+            </div>
+          </div>
+          <div class="project-side">
+            <span class="status-badge status-private mono">automation</span>
+            <span class="project-link disabled">Forms → Zapier → Sheets → Gmail</span>
+          </div>
+          </div>
+        </article>
 
         <article class="project-card">
           <div class="project-thumb" style="background:none;">
@@ -591,45 +633,6 @@
           </div>
         </article>
 
-        <article class="project-card">
-          <div class="carousel" tabindex="0" aria-roledescription="carousel" aria-label="Client Inquiry &amp; Lead Management System screenshots">
-            <div class="carousel-track">
-              <div class="carousel-slide"><img src="portfolio-images/workflow-1.png" alt="Zapier workflow screenshot 1 of 7"></div>
-              <div class="carousel-slide"><img src="portfolio-images/form-1.png" alt="Zapier workflow screenshot 2 of 7" loading="lazy"></div>
-              <div class="carousel-slide"><img src="portfolio-images/form-2.png" alt="Zapier workflow screenshot 3 of 7" loading="lazy"></div>
-              <div class="carousel-slide"><img src="portfolio-images/form-3.png" alt="Zapier workflow screenshot 4 of 7" loading="lazy"></div>
-              <div class="carousel-slide"><img src="portfolio-images/sheets-1.png" alt="Zapier workflow screenshot 5 of 7" loading="lazy"></div>
-              <div class="carousel-slide"><img src="portfolio-images/slack-1.png" alt="Zapier workflow screenshot 6 of 7" loading="lazy"></div>
-              <div class="carousel-slide"><img src="portfolio-images/email-1.png" alt="Zapier workflow screenshot 7 of 7" loading="lazy"></div>
-            </div>
-            <button class="carousel-btn prev" aria-label="Previous image">&#8592;</button>
-            <button class="carousel-btn next" aria-label="Next image">&#8594;</button>
-            <div class="carousel-dots"></div>
-            <span class="carousel-count mono"></span>
-          </div>
-          <div class="project-body">
-          <div>
-            <span class="project-path mono">~/work/client-inquiry-automation</span>
-            <h3>Client Inquiry &amp; Lead Management System</h3>
-            <p>Built a rule-based workflow automation that turns Google Form inquiries into a prioritized lead tracker. Zapier records each submission in a Google Sheets CRM, a sheet formula classifies it as High, Medium, or Low priority by budget, and Gmail sends the client an acknowledgment email, with alert logic for high-priority leads. The result is less manual data entry and faster follow-up, without needing a paid AI API.</p>
-            <div class="tag-row">
-              <span class="tag">Zapier</span>
-              <span class="tag">Google Forms</span>
-              <span class="tag">Google Sheets</span>
-              <span class="tag">Gmail</span>
-            </div>
-          </div>
-          <div class="project-side">
-            <span class="status-badge status-private mono">automation</span>
-            <span class="project-link disabled">Forms → Zapier → Sheets → Gmail</span>
-          </div>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
   <section id="about">
     <div class="wrap">
       <div class="section-head">
@@ -653,7 +656,7 @@
     </div>
   </section>
 
-  <section id="skills">
+    <section id="skills">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow mono">~/skills</span>
@@ -681,7 +684,16 @@
           </ul>
         </div>
         <div class="skill-group">
-          <span class="mono">automation &amp; crm</span>
+          <span class="mono">ai &amp; automation</span>
+          <ul class="skill-list">
+            <li><strong>Zapier</strong></li>
+            <li><strong>n8n</strong></li>
+            <li><strong>Conditional logic &amp; filters</strong></li>
+            <li><strong>Google Workspace integrations</strong></li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <span class="mono">crm &amp; booking</span>
           <ul class="skill-list">
             <li><strong>FluentCRM</strong></li>
             <li><strong>Fluent Forms</strong></li>
