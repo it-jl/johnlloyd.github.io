@@ -379,6 +379,87 @@
     .carousel-track{ transition: none; }
   }
 
+    /* ---------- LIGHTBOX ---------- */
+  .carousel-slide img{ cursor: zoom-in; }
+  .carousel::after{
+    content: 'tap to enlarge';
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 20px;
+    color: var(--ink-soft);
+    pointer-events: none;
+  }
+
+  .lightbox{
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(15,17,18,0.94);
+    display: none;
+  }
+  .lightbox.open{ display: block; }
+  .lb-stage{
+    position: absolute;
+    inset: 0;
+    overflow: auto;
+    display: flex;
+    padding: 64px 16px;
+  }
+  .lb-img{
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    cursor: zoom-in;
+    background: #fff;
+  }
+  .lightbox.zoomed .lb-img{
+    max-width: none;
+    max-height: none;
+    width: 250%;
+    cursor: zoom-out;
+  }
+  @media (min-width: 900px){
+    .lightbox.zoomed .lb-img{ width: 180%; }
+  }
+  .lb-btn{
+    position: absolute;
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lb-btn:hover{ background: rgba(255,255,255,0.25); }
+  .lb-close{ top: 14px; right: 14px; }
+  .lb-prev{ left: 12px; top: 50%; transform: translateY(-50%); }
+  .lb-next{ right: 12px; top: 50%; transform: translateY(-50%); }
+  .lb-count{
+    position: absolute;
+    z-index: 2;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.78rem;
+    color: #fff;
+    background: rgba(255,255,255,0.12);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  
   /* ---------- ABOUT ---------- */
   .about-grid{
     display:grid;
@@ -735,6 +816,14 @@
   </div>
 </footer>
 
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lb-btn lb-close" aria-label="Close">&#10005;</button>
+  <button class="lb-btn lb-prev" aria-label="Previous image">&#8592;</button>
+  <div class="lb-stage"><img class="lb-img" alt=""></div>
+  <button class="lb-btn lb-next" aria-label="Next image">&#8594;</button>
+  <span class="lb-count mono"></span>
+</div>
+        
 <script>
   const cards = document.querySelectorAll('.project-card');
   const io = new IntersectionObserver((entries) => {
@@ -788,6 +877,60 @@
 
     go(0);
   });
+
+    const lb = document.getElementById('lightbox');
+  const lbImg = lb.querySelector('.lb-img');
+  const lbStage = lb.querySelector('.lb-stage');
+  const lbCount = lb.querySelector('.lb-count');
+  let lbImgs = [], lbIndex = 0;
+
+  function lbShow(i){
+    lbIndex = (i + lbImgs.length) % lbImgs.length;
+    lbImg.src = lbImgs[lbIndex].currentSrc || lbImgs[lbIndex].src;
+    lbImg.alt = lbImgs[lbIndex].alt;
+    lbCount.textContent = (lbIndex + 1) + ' / ' + lbImgs.length;
+    lb.classList.remove('zoomed');
+    lbStage.scrollTo(0, 0);
+  }
+  function lbOpen(imgs, i){
+    lbImgs = imgs;
+    lbShow(i);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lb.querySelector('.lb-close').focus();
+  }
+  function lbClose(){
+    lb.classList.remove('open', 'zoomed');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.carousel').forEach(c => {
+    const imgs = Array.from(c.querySelectorAll('.carousel-slide img'));
+    imgs.forEach((img, i) => img.addEventListener('click', () => lbOpen(imgs, i)));
+  });
+
+  lb.querySelector('.lb-close').addEventListener('click', lbClose);
+  lb.querySelector('.lb-prev').addEventListener('click', () => lbShow(lbIndex - 1));
+  lb.querySelector('.lb-next').addEventListener('click', () => lbShow(lbIndex + 1));
+  lbImg.addEventListener('click', () => lb.classList.toggle('zoomed'));
+  lbStage.addEventListener('click', e => { if (e.target === lbStage) lbClose(); });
+
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') lbClose();
+    if (e.key === 'ArrowLeft') lbShow(lbIndex - 1);
+    if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
+  });
+
+  let lbStartX = null;
+  lbStage.addEventListener('touchstart', e => { lbStartX = e.touches[0].clientX; }, { passive: true });
+  lbStage.addEventListener('touchend', e => {
+    if (lbStartX === null || lb.classList.contains('zoomed')) { lbStartX = null; return; }
+    const dx = e.changedTouches[0].clientX - lbStartX;
+    if (Math.abs(dx) > 50) lbShow(lbIndex + (dx < 0 ? 1 : -1));
+    lbStartX = null;
+  });
+  
 </script>
 
 </body>
